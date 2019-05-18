@@ -9,10 +9,10 @@
 
 #include <ucontext.h>
 
-#define STACK_LIMIT (1024 * 1024)
-
 namespace yac
 {
+constexpr size_t STACK_LIMIT = 1024 * 1024;
+
 using routine_t = uint64_t;
 
 struct Routine
