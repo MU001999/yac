@@ -128,7 +128,7 @@ resume(routine_t id)
         routine->ctx.uc_link = &ordinator.ctx;
         ordinator.current = id;
 
-        makecontext(&routine->ctx, reinterpret_cast<void(*)(void)>(entry), 0);
+        makecontext(&routine->ctx, reinterpret_cast<void(*)()>(entry), 0);
         swapcontext(&ordinator.ctx, &routine->ctx);
     }
     else
@@ -146,10 +146,6 @@ yield()
     auto id = ordinator.current;
     auto routine = ordinator.routines[id-1];
     assert(routine != nullptr);
-
-    char *stack_top = routine->stack + ordinator.stack_size;
-    char stack_bottom = 0;
-    assert(size_t(stack_top - &stack_bottom) <= ordinator.stack_size);
 
     ordinator.current = 0;
     swapcontext(&routine->ctx, &ordinator.ctx);
