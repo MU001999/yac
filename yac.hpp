@@ -85,7 +85,7 @@ destory(routine_t id)
 {
     auto routine = ordinator.routines[id-1];
     assert(routine != nullptr);
-    
+
     delete routine;
     ordinator.routines[id-1] = nullptr;
     ordinator.deleted.push_back(id);
@@ -136,7 +136,7 @@ resume(routine_t id)
         ordinator.current = id;
         swapcontext(&ordinator.ctx, &routine->ctx);
     }
-    
+
     return 0;
 }
 
